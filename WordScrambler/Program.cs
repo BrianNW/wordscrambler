@@ -14,31 +14,41 @@ namespace WordScrambler
             do
             {
                 Console.WriteLine("Please enter the option - F for File and M for Manual");
+                //null coalescing. If input is nothing, leave as empty string.
                 var option = Console.ReadLine() ?? string.Empty;
 
                 switch (option.ToUpper())
                 {
                     case "F":
                         Console.Write("Enter scrambled words file name: ");
+                        ExecuteScrambledWordsInFileScenario();
                         break;
                     case "M":
                         Console.Write("Enter Scrambled words manually: ");
+                        ExecuteScrambledWordsManualEntryScenario();
                         break;
                     default:
                         Console.Write("Option was not recognized");
                         break;
                 }
-                var continueWordUnscrambledDecision = string.Empty;
+                var continueWordUnscrambleDecision = string.Empty;
                 do
                 {
-                    Console.WriteLine("Do you want to continue? Y/N");
-                    continueWordUnscrambledDecision = (Console.ReadLine() ?? string.Empty);
-                } while {
-                    !continueWordUnscrambledDecision.Equals("Y", StringComparison.OrdinalIgnoreCase) &&
-                    !continueWordUnscrambledDecision.Equals("N", StringComparison.OrdinalIgnoreCase));
-                } while ();
-            }
-            private static void ExecuteScrambeWordsInFileScenario()
+
+                    Console.WriteLine("Do you want to continue? ");
+                    continueWordUnscrambleDecision = (Console.ReadLine() ?? string.Empty);
+
+                } while (
+                        !continueWordUnscrambleDecision.Equals("Y", StringComparison.OrdinalIgnoreCase) && 
+                         !continueWordUnscrambleDecision.Equals("N")
+                        );
+                //if no, this will be false
+                continueWordUnscramble = continueWordUnscrambleDecision.Equals("Y", StringComparison.OrdinalIgnoreCase);
+
+            } while (continueWordUnscramble);
+        }
+
+            private static void ExecuteScrambledWordsManualEntryScenario()
             {
                 throw new NotImplementedException();
             }
