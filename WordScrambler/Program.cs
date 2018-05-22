@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordScrambler.Data;
+using WordScrambler.Workers;
 
 namespace WordScrambler
 {
     class Program
     {
+        private static readonly FileReader _fileReader = new FileReader();
+        private static readonly WordMatcher _wordMatcher = new WordMatcher();
+        private const string wordListFileName = "wordlist.txt";
+
         static void Main(string[] args)
         {
             bool continueWordUnscramble = true;
@@ -59,15 +65,15 @@ namespace WordScrambler
             private static void ExecuteScrambledWordsInFileScenario()
             {
                 var filename = Console.ReadLine() ?? string.Empty;
-                string[] scrambleWords = fileReader.Read();
-                DisplayMatchedUnscrambledWords(scrambleWords);
+                string[] scrambledWords = _fileReader.Read(filename);
+                DisplayMatchedUnscrambledWords(scrambledWords);
              }
 
             private static void DisplayMatchedUnscrambledWords(string[] scrambledWords)
             {
                  string[] wordList = _fileReader.Read(wordListFileName);
 
-                 List<MatchedWord> matchedWords = WordMatcher.Match(scrambledWords, wordList);
+                 List<MatchedWord> matchedWords = _wordMatcher.Match(scrambledWords, wordList);
 
                  if(matchedWords.Any())
                   {
